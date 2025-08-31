@@ -344,78 +344,185 @@ console.log("=== OBJECTS ===");
 ////////////////////////////////////
 // Coding Challenge #3 - User Profile System
 
-const user = {
-  firstName: "Jose Neil",
-  lastName: "Silagan Jr.",
-  birthYear: 2005,
-  location: "Pasig",
-  interests: ["basketball", "books", "coding"],
-  friends: [
-    { name: "Lebron", status: "active" },
-    { name: "kyrie", status: "inactive" },
-    { name: "kevin", status: "active" },
-  ],
-  isActive: true,
+// const user = {
+//   firstName: "Jose Neil",
+//   lastName: "Silagan Jr.",
+//   birthYear: 2005,
+//   location: "Pasig",
+//   interests: ["basketball", "books", "coding"],
+//   friends: [
+//     { name: "Lebron", status: "active" },
+//     { name: "kyrie", status: "inactive" },
+//     { name: "kevin", status: "active" },
+//   ],
+//   isActive: true,
 
-  // Calculate age method
-  calcAge: function () {
-    // Calculate age and store as this.age
-    // Hint: Use new Date().getFullYear() for current year
-    return new Date().getFullYear() - this.birthYear
-  },
+//   // Calculate age method
+//   calcAge: function () {
+//     // Calculate age and store as this.age
+//     // Hint: Use new Date().getFullYear() for current year
+//     return new Date().getFullYear() - this.birthYear
+//   },
 
-  // Add friend method
-  addFriend: function (name, status = "active") {
-    // Add new friend object to this.friends array
-    // Return the new length of friends array
-    this.friends.push({
-      name: name,
-      status: status,
-    })
+//   // Add friend method
+//   addFriend: function (name, status = "active") {
+//     // Add new friend object to this.friends array
+//     // Return the new length of friends array
+//     this.friends.push({
+//       name: name,
+//       status: status,
+//     })
 
-    return this.friends
-  },
+//     return this.friends
+//   },
 
-  // Get active friends count
-  getActiveFriends: function () {
-    // Filter friends array to count only active friends
-    // Hint: use this.friends.filter()
-    return this.friends.filter((friend) => {
-      return friend.status === "active"
-    })
-  },
+//   // Get active friends count
+//   getActiveFriends: function () {
+//     // Filter friends array to count only active friends
+//     // Hint: use this.friends.filter()
+//     return this.friends.filter((friend) => {
+//       return friend.status === "active"
+//     })
+//   },
 
-  // Toggle active status
-  toggleStatus: function () {
-    // Switch this.isActive between true and false
-    // Return the new status
-    // Your code here
-    this.isActive = !this.isActive
-  },
+//   // Toggle active status
+//   toggleStatus: function () {
+//     // Switch this.isActive between true and false
+//     // Return the new status
+//     // Your code here
+//     this.isActive = !this.isActive
+//   },
 
-  // Generate profile summary
-  getSummary: function () {
-    // Create a social media style profile summary
-    // Include: name, age, location, status, friend counts, interests
-    // Use template literals for nice formatting
-    // Your code here
-return `
-  Name: ${this.firstName} ${this.lastName}
-  Age: ${this.calcAge()}
-  Location: ${this.location}
-  Active: ${this.isActive ? 'Yes' : 'No'}
-  Number of Friends: ${this.friends.length}
-  Interests:
-    ${this.interests.map(interest => `- ${interest}`).join('\n    ')}
-`;
-  },
-};
+//   // Generate profile summary
+//   getSummary: function () {
+//     // Create a social media style profile summary
+//     // Include: name, age, location, status, friend counts, interests
+//     // Use template literals for nice formatting
+//     // Your code here
+// return `
+//   Name: ${this.firstName} ${this.lastName}
+//   Age: ${this.calcAge()}
+//   Location: ${this.location}
+//   Active: ${this.isActive ? 'Yes' : 'No'}
+//   Number of Friends: ${this.friends.length}
+//   Interests:
+//     ${this.interests.map(interest => `- ${interest}`).join('\n    ')}
+// `;
+//   },
+// };
 
-// Test your user profile system
-console.log(user.getSummary());
-user.addFriend("Alex", "active");
-user.toggleStatus();
-console.log(`\nAfter updates:`);
-console.log(user.getSummary());
+// // Test your user profile system
+// console.log(user.getSummary());
+// user.addFriend("Alex", "active");
+// user.toggleStatus();
+// console.log(`\nAfter updates:`);
+// console.log(user.getSummary());
 
 // JavaScript Fundamentals Part 2 - Hour 3
+
+////////////////////////////////////
+// Selecting DOM Elements
+
+// querySelector - works with any CSS selector
+// const message = document.querySelector(".message"); // Select by class
+// const addBtn = document.querySelector("#btn"); // Select by ID
+// const heading = document.querySelector("h1"); // Select by tag
+// const input = document.querySelector(".guess"); // Select by class
+
+// console.log(message);
+// console.log(addBtn);
+// console.log(heading);
+
+////////////////////////////////////
+// Final Project: Interactive Score Tracker
+
+const gameState = {
+  scores: [0, 0],
+  winningScore: 5,
+  gameActive: true,
+
+  scoreDOM: [
+    document.getElementById("score-1"),
+    document.getElementById("score-2"),
+  ],
+  players: [
+    document.querySelector(".player-1"),
+    document.querySelector(".player-2"),
+  ],
+  addBtn: document.querySelectorAll(".btn-add"),
+  resetBtn: document.getElementById("btn-reset"),
+  winningScoreInput: document.getElementById("winning-score"),
+  target: document.querySelector(".target"),
+  winnerName: document.querySelector(".winner-name"),
+  winnerMsg: document.querySelector(".winner"),
+
+  addPoint: function(player) {
+    if (!this.gameActive) return;
+    this.scores[player]++;
+    this.update();
+    this.checkWinner();
+  },
+
+  checkWinner: function() {
+    if (this.scores[0] >= this.winningScore) {
+        this.showWinner(0);
+        this.gameActive = false;
+      }
+      else if(this.scores[1] >= this.winningScore){
+        this.showWinner(1);
+        this.gameActive = false;
+      }
+  },
+
+  showWinner: function(winner) {
+    this.winnerMsg.classList.remove("hidden");
+    this.winnerName.textContent = `Player ${winner + 1}`;
+    this.players[winner].classList.add("winner");
+    this.players[1 - winner].classList.add("loser");
+  },
+
+  resetGame: function() {
+    this.scores = [0, 0];
+    this.gameActive = true;
+    this.winnerMsg.classList.add("hidden");
+    this.players.forEach(player => {
+      player.classList.remove("winner", "loser");
+    });
+    this.update();
+  },
+
+  update: function() {
+    this.scoreDOM[0].textContent = this.scores[0];
+    this.scoreDOM[1].textContent = this.scores[1];
+    this.target.textContent = this.winningScore;
+  },
+
+  setWinningScore: function(value) {
+    this.winningScore = value;
+    this.winningScoreInput = value;
+    this.resetGame();
+    this.update();
+  }
+};
+
+gameState.addBtn.forEach((btn, i) => {
+  btn.addEventListener("click", () => gameState.addPoint(i));
+});
+
+gameState.resetBtn.addEventListener("click", () => gameState.resetGame());
+
+gameState.winningScoreInput.addEventListener("change", function () {
+  let input = Number(this.value);
+  if (input < 1) input = 1;
+  if (input > 20) input = 20;
+  gameState.setWinningScore(input);
+});
+
+document.addEventListener("keydown", function (event) {
+  if (!gameState.gameActive) return;
+  if (event.key === "1") gameState.addPoint(0);
+  if (event.key === "2") gameState.addPoint(1);
+  if (event.key.toLowerCase() === "r") gameState.resetGame();
+});
+
+gameState.update();
