@@ -1,185 +1,120 @@
-// // Developer Skills Hour 3 - Research Skills & Debugging Fundamentals
-// 'use strict';
+// Developer Skills Hour 4 - Advanced Problem-Solving & Real-World Challenges
+'use strict';
 
-// console.log('=== HOUR 3: RESEARCH & DEBUGGING MASTERY ===');
-
-// /*
-// Random Googling vs Strategic Research:
-
-// RANDOM GOOGLING (Beginner Approach):
-// - Search only when completely stuck
-// - Use vague search terms like "javascript array problem"
-// - Copy-paste first solution found
-// - Don't understand what the code does
-// - Same problems happen repeatedly
-
-// STRATEGIC RESEARCH (Professional Approach):
-// - Research proactively to understand concepts
-// - Use specific, targeted search terms
-// - Evaluate multiple solutions
-// - Understand solutions before implementing
-// - Build knowledge for future problems
-// */
-
-// console.log(
-//   'Goal: Master research and debugging like a professional developer'
-// );
-// console.log(
-//   'Strategic research builds lasting knowledge, not just quick fixes'
-// );
-
-// ////////////////////////////////////
-// // PROFESSIONAL GOOGLE RESEARCH TECHNIQUES
-
-// /*
-// RESEARCH CHALLENGE: Find Maximum Value in Array
-// Search progression:
-// 1. "javascript maximum value array"
-// 2. "javascript Math.max array"
-// 3. "javascript Math.max spread operator array"
-// 4. "Math.max MDN javascript"
-// */
-
-// function demonstrateArrayMax(numbers) {
-//   // Method 1 - Using Math.max with spread operator (from research)
-//   const method1 = Math.max(...numbers);
-
-//   // Method 2 - Using for loop (traditional approach)
-//   let method2 = numbers[0];
-//   for (let i = 1; i < numbers.length; i++) {
-//     if (numbers[i] > method2) method2 = numbers[i];
-//   }
-
-//   // Method 3 - Using reduce method (functional approach)
-//   const method3 = numbers.reduce((max, current) =>
-//     current > max ? current : max
-//   );
-
-//   return { method1, method2, method3 };
-// }
-
-// // Test our research with sample data
-// const testNumbers = [3, 7, 2, 9, 1, 5];
-// const maxResults = demonstrateArrayMax(testNumbers);
-// console.log('Multiple approaches from research:', maxResults);
-
-// ////////////////////////////////////
-// // DEBUGGER STATEMENT AND BREAKPOINTS
-
-// function stepThroughDebugging(numbers) {
-//   debugger; // This will pause execution in browser dev tools
-
-//   let sum = 0;
-//   let count = 0;
-
-//   for (let i = 0; i < numbers.length; i++) {
-//     const currentNumber = numbers[i];
-
-//     console.log(`Processing index ${i}: value = ${currentNumber}`);
-
-//     if (typeof currentNumber === 'number') {
-//       sum += currentNumber;
-//       count++;
-//     } else {
-//       console.error(`Invalid number at index ${i}:`, currentNumber);
-//     }
-//   }
-
-//   const average = count > 0 ? sum / count : 0;
-//   console.log('Final results:', { sum, count, average });
-
-//   return average;
-// }
-
-// // Test debugging function - open dev tools to see debugger in action
-// const mixedNumbers = [10, 20, 'error', 30, null, 40];
-// const debugResult = stepThroughDebugging(mixedNumbers);
-// console.log('Debug session result:', debugResult);
-////////////////////////////////////
-// SYSTEMATIC BUG FIXING APPLICATION
+console.log('=== HOUR 4: ADVANCED PROBLEM-SOLVING MASTERY ===');
 
 /*
-DEBUGGING PROCESS APPLICATION:
+Your Developer Transformation Today:
+Hour 1: Professional tools and environment ✅
+Hour 2: Problem-solving framework and mindset ✅  
+Hour 3: Research and debugging mastery ✅
+Hour 4: Apply everything to real challenges
 
-STEP 1: IDENTIFY ✅
-- Bug: calculateAverageScore returns NaN or wrong value
-- Expected: Average of [85, 92, 78, 96, 88] should be 87.8
-- Actual: Getting NaN or incorrect value
-
-STEP 2: ISOLATE ✅
-- Bug location: Inside calculateAverageScore function
-- Specific issues: initialization, loop condition, division
-
-STEP 3: INVESTIGATE ✅
-- total starts as undefined (undefined + number = NaN)
-- Loop goes one iteration too far (accesses undefined)
-- Division uses wrong denominator
-
-STEP 4: FIX ✅
-- Initialize total to 0
-- Change <= to < in loop condition
-- Remove + 1 from division
-
-STEP 5: PREVENT ✅
-- Add input validation
-- Add type checking for array elements
+You're now solving unfamiliar problems independently.
 */
 
-function calculateAverageScoreFixed(scores) {
-  // STEP 5 - PREVENT: Add input validation
-  if (!Array.isArray(scores) || scores.length === 0) {
-    console.error('Invalid input: scores must be a non-empty array');
-    return 0;
+console.log('Ready to tackle complex problems using systematic approaches');
+console.log('Challenge: Build solutions that work under pressure');
+
+////////////////////////////////////
+// MAIN CHALLENGE: Weather Forecast String Builder
+
+/*
+WEATHER FORECAST CHALLENGE:
+Apply 4-step framework systematically:
+1. UNDERSTAND: Transform array to formatted string with day numbering
+2. DIVIDE: String building + formatting + day calculation + separators
+3. RESEARCH: String concatenation and template literals
+4. IMPLEMENT: Step-by-step solution building
+*/
+
+const data1 = [17, 21, 23];
+const data2 = [12, 5, -5, 0, 4];
+
+function printForecast(arr) {
+  let string = '';
+
+  for (let i = 0; i < arr.length; i++) {
+    string += `${arr[i]} °C in ${i + 1} days ... `;
   }
 
-  // STEP 4 - FIX: Proper initialization
-  let total = 0; // FIXED: Initialize to 0, not undefined
-
-  // STEP 4 - FIX: Correct loop condition
-  for (let i = 0; i < scores.length; i++) {
-    // FIXED: < instead of <=
-    // STEP 5 - PREVENT: Add type checking
-    if (typeof scores[i] === 'number') {
-      total += scores[i];
-    } else {
-      console.warn(`Skipping non-number value at index ${i}:`, scores[i]);
-    }
-  }
-
-  // STEP 4 - FIX: Correct division
-  return total / scores.length; // FIXED: Remove + 1
+  console.log('...' + string);
 }
 
-// testScores = [85, 92, 78, 96, 88];
+printForecast(data1);
+printForecast(data2);
 
-// // Test the fixed function
-// const fixedResult = calculateAverageScoreFixed(testScores);
-// console.log('Fixed result:', fixedResult); // Should show correct average: 87.8
+console.log('Weather forecast formatter working correctly!');
 
-// Comprehensive debugging verification
-console.group('Debugging Verification Tests');
+////////////////////////////////////
+// TIME-PRESSURED CHALLENGE: Work Hours Analyzer
 
-// Test 1 - Normal case
-const normalScores = [85, 92, 78, 96, 88];
-const normalResult = calculateAverageScoreFixed(normalScores);
-console.log('Normal case result:', normalResult);
+/*
+JOB INTERVIEW SIMULATION:
+10-minute challenge to analyze freelancer work week
+Stay systematic even under pressure!
+*/
 
-// Test 2 - Edge case with invalid data
-const mixedScores = [85, 'invalid', 92, null, 78];
-const mixedResult = calculateAverageScoreFixed(mixedScores);
-console.log('Mixed data result:', mixedResult);
+function analyzeWorkWeek(dailyHours) {
+  const totalHours = dailyHours.reduce((sum, hours) => sum + hours, 0);
 
-// Test 3 - Error case with invalid input
-const errorResult = calculateAverageScoreFixed('not an array');
-console.log('Error case result:', errorResult);
+  const averageHours = Math.round((totalHours / dailyHours.length) * 10) / 10;
 
-// Test 4 - Edge case with empty array
-const emptyResult = calculateAverageScoreFixed([]);
-console.log('Empty array result:', emptyResult);
+  const mostHours = Math.max(...dailyHours);
+  const maxDayIndex = dailyHours.indexOf(mostHours);
+  const days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+  ];
+  const maxDay = days[maxDayIndex];
 
-console.groupEnd();
+  const daysWorked = dailyHours.filter(hours => hours > 0).length;
 
-console.log('Systematic debugging process successfully applied!');
-console.log(
-  'All bugs identified, isolated, investigated, fixed, and prevented'
-);
+  const isFullTime = totalHours >= 35;
+
+  return {
+    totalHours,
+    averageHours,
+    maxDay,
+    daysWorked,
+    isFullTime,
+  };
+}
+
+// Test the solution
+const weeklyHours = [7.5, 8, 6.5, 0, 8.5, 4, 0];
+const analysis = analyzeWorkWeek(weeklyHours);
+console.log('Work week analysis:', analysis);
+
+console.log('Challenge completed under time pressure!');
+
+////////////////////////////////////
+// FINAL INTEGRATION: Debug and Enhance Legacy Code
+
+// Here's the buggy legacy code you need to fix
+function legacyForecastFunction(temperatures) {
+  // Multiple bugs hidden in this code!
+  if (!Array.isArray(temperatures) || temperatures.length === 0) {
+    console.error('Invalid input: temperatures is not a valid Array!');
+
+    return;
+  }
+
+  var result = '';
+  for (var i = 0; i < temperatures.length; i++) {
+    result += `${temperatures[i]}°C in day ${i + 1} ...`;
+  }
+  return '...' + result;
+}
+
+// Test the buggy function to see what goes wrong
+const testData = [15, 18, 22, 19];
+console.log('Buggy function output:', legacyForecastFunction(testData));
+
+console.log('🎯 Complete developer skills successfully applied!');
+console.log('Legacy code debugged, fixed, and enhanced systematically');
